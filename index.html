@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ajax & json</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+
+		<div class="weather_box">
+			<h4 id="city">City</h4>
+			<h3> <span id="temp">00</span><sup> 0</sup>c & Time is <span id="time"></span></h3>
+			<h1 id="country">country</h1>
+			<input type="text" id="type_city" placeholder="Type city name">
+			<button class="btn">Click</button>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+		<script>
+			
+		$(function(){
+
+			$(".btn").click(function(){
+
+				var city_name=$("#type_city").val();
+				getValue(city_name)
+			})
+
+			function getValue(city_name){
+				$.ajax({
+				url:"http://api.apixu.com/v1/current.json?key=f0d47056830b43c2a2761554172403&q="+city_name,
+				dataType:"json",
+
+				success:function(data){
+					$("#city").text(data.location.name);
+					$("#country").text(data.location.country);
+					$("#temp").text(data.current.temp_c);
+					$("#time").text(data.current.last_updated);
+				}
+			});
+			}
+
+			
+		})
+		</script>
+
+	</body>
+</html>
